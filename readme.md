@@ -1,9 +1,11 @@
 # Servidor Web Apache
 
 ## Docker compose
+~~~
 version: "2.2"
 services:
-#### este es el dns
+~~~
+#### Este es el contenedor del dns
 ~~~
   asir_bind9:
     image: internetsystemsconsortium/bind9:9.16
@@ -15,7 +17,7 @@ services:
       red01:
         ipv4_address: 10.1.0.254
 ~~~
-#### este es el cliente con la imagen kasmweb/desktop
+#### Este es el cliente con la imagen kasmweb/desktop
 ~~~
   asir_cliente:
     image: kasmweb/desktop:1.10.0-rolling
@@ -33,7 +35,7 @@ services:
     stdin_open: true  # docker run -i
     tty: true         # docker run -t
 ~~~
-#### y este es el servidor web apache
+#### Este es el servidor web apache
 ~~~
   asir_webb:
     image: httpd:latest
@@ -59,3 +61,47 @@ volumes:
   apache_index:
     external: true
 ~~~
+
+## Configuración maquinas   
+
+### En el servidor web
+
+- A continuación en en servidor apache en la carpeta htdocs creo dos carpetas cada una con un index, para hacer dos paginas web
+
+- Y en el volumen de configuración del servidor apache buscamos esta linea: Include conf/extra/httpd-vhosts.conf y la descomentamos
+
+- Y en la carpeta extra buscamos el archivo: httpd-vhosts.conf y creamos dos virtual host para cada pagina
+~~~
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot "/usr/local/apache2/htdocs/adios"
+    ServerName adios.ejemplo.com
+    ErrorLog "logs/dummy-host.example.com-error_log"
+    CustomLog "logs/dummy-host.example.com-access_log" common
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "/usr/local/apache2/htdocs/hola"
+    ServerName hola.ejemplo.com
+    ErrorLog "logs/dummy-host2.example.com-error_log"
+    CustomLog "logs/dummy-host2.example.com-access_log" common
+</VirtualHost>
+~~~
+
+### En el Servidor dns
+
+- Creamos una zona dns como en la practica dns, y agregamos estos dos cnames:
+~~~
+hola IN CNAME ejemplo
+adios IN CNAME ejemplo
+~~~
+
+- Reiniciamos los equipos
+
+### En el cliente
+
+- Vamos al navegador y hacemos dos busquedas para comprobar que funcione, primero busco hola.ejemplo.com y nos aparece el index que haya creado a la pagina hola
+
+- y despues buscamos adios.ejemplo.com y nos aparecera otra pagina distinta
+
