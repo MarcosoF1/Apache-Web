@@ -46,6 +46,8 @@ services:
       -apache_index:/usr/local/apache2/htdocs
       -apache_conf:/usr/local/apache2/conf
 ~~~
+#### Aqui, al final del compose ponemos las redes y volumenes que tenemos, y el external lo ponemos por que ya estan creados
+~~~
 networks:
  red01:
   external: true
@@ -56,3 +58,4 @@ volumes:
     external: true
   apache_index:
     external: true
+~~~
