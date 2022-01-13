@@ -3,7 +3,7 @@
 ## Docker compose
 version: "2.2"
 services:
-- este es el dns
+#### este es el dns
   asir_bind9:
     image: internetsystemsconsortium/bind9:9.16
     ports:
@@ -13,12 +13,12 @@ services:
     networks:
       red01:
         ipv4_address: 10.1.0.254
-- este es el cliente con la imagen kasmweb/desktop
+#### este es el cliente con la imagen kasmweb/desktop
   asir_cliente:
     image: kasmweb/desktop:1.10.0-rolling
     ports:
       -6901:6901
-- El apartado environment nos sirve para ponerme la contraseña al usuario del contenedor
+#### El apartado environment nos sirve para ponerme la contraseña al usuario del contenedor
     environment:
       VNC_PW: password
     networks:
@@ -27,7 +27,7 @@ services:
       -10.1.0.254
     stdin_open: true  # docker run -i
     tty: true         # docker run -t
-- y este es el servidor web apache
+#### y este es el servidor web apache
   asir_webb:
     image: httpd:latest
     ports:
