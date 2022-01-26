@@ -66,11 +66,11 @@ volumes:
 
 ### En el servidor web
 
-- A continuación en en servidor apache en la carpeta htdocs creo dos carpetas cada una con un index, para hacer dos paginas web
+- A continuación en en servidor apache en la carpeta htdocs creo dos carpetas cada una con un index, para hacer dos paginas web.
 
-- Y en el volumen de configuración del servidor apache buscamos esta linea: Include conf/extra/httpd-vhosts.conf y la descomentamos
+- En el volumen de configuración del servidor apache buscamos esta linea: Include conf/extra/httpd-vhosts.conf y la descomentamos.
 
-- Y en la carpeta extra buscamos el archivo: httpd-vhosts.conf y creamos dos virtual host para cada pagina
+- En la carpeta extra buscamos el archivo: httpd-vhosts.conf y creamos dos virtual host para cada pagina.
 ~~~
 <VirtualHost *:80>
     ServerAdmin webmaster@dummy-host.example.com
@@ -101,7 +101,7 @@ adios IN CNAME ejemplo
 
 ### En el cliente
 
-- Vamos al navegador y hacemos dos busquedas para comprobar que funcione, primero busco hola.ejemplo.com y nos aparece el index que haya creado a la pagina hola
+- Vamos al navegador y hacemos dos busquedas para comprobar que funcione, primero busco hola.ejemplo.com y nos aparece el index que haya creado a la pagina hola.
 
-- y despues buscamos adios.ejemplo.com y nos aparecera otra pagina distinta
+- Despues buscamos adios.ejemplo.com y nos aparecera otra pagina distinta.
 
