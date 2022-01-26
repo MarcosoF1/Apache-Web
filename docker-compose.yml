@@ -24,13 +24,25 @@ services:
   asir_webb:
     image: httpd:latest
     ports:
-      - "80:80"
+      - 80:80
     networks:
       red01:
         ipv4_address: 10.1.0.5
     volumes:
       - apache_index:/usr/local/apache2/htdocs
       - apache_conf:/usr/local/apache2/conf
+  asir_wireshark:
+    image: linuxserver/wireshark
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    ports:
+      - 3000:3000 #optional
+
 networks:
  red01:
   external: true
