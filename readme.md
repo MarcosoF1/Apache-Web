@@ -48,6 +48,21 @@ services:
       -apache_index:/usr/local/apache2/htdocs
       -apache_conf:/usr/local/apache2/conf
 ~~~
+#### Aqui creo el contenedor del wireshark 
+~~~
+asir_wireshark:
+    image: linuxserver/wireshark
+    cap_add:  
+      - NET_ADMIN
+    network_mode: host  
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    ports:
+      - 3000:3000 #optional
+~~~
+- Para acceder a wireshark desde el navegador ponemos localhost:3000 y accederemos a el
 #### Aqui, al final del compose ponemos las redes y volumenes que tenemos, y el external lo ponemos por que ya estan creados
 ~~~
 networks:
