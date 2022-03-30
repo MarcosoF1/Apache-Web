@@ -102,6 +102,12 @@ volumes:
     ErrorLog "logs/dummy-host2.example.com-error_log"
     CustomLog "logs/dummy-host2.example.com-access_log" common
 </VirtualHost>
+
+ - ServerAdmin: es un contacto al administrador o otra persona
+ - DocumentRoot: es la ruta donde estara la pagina web
+ - ServerName: Es el nombre de dominio del virtual host
+ - ErrorLog: es donde se van a almacenar los logs de errores
+ - CustomLog: Es donde se va a almacenar los logs de acceso
 ~~~
 
 ### En el Servidor dns
@@ -120,3 +126,42 @@ adios IN CNAME ejemplo
 
 - Despues buscamos adios.ejemplo.com y nos aparecera otra pagina distinta.
 
+
+## Protocolo HTTPS
+
+~~~
+Primero realizo el comando para crear las claves y si queremos que se creen los archivos en una ruta que qreramos le cambiamos el path y estaria:
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
+
+
+Cuando se haya ejecutado, utilizamos el comando cp .key o .crt contenedor:ruta volumen
+Ejemplo:
+
+sudo docker cp apache-selfsigned.key asir_webb:/usr/local/apache2/conf
+
+docker cp apache-selfsigned.crt asir_webb:/usr/local/apache2/conf
+
+Despues, vamos a inspeccionar el volumen y tenemos que entrar en el archivo httpd-ssl.conf y en required modules vamos viendo copiando y viendo en httpd.conf las lineas que tenemos que descomentar para que nos funcione el htpps.
+
+~~~
+
+## Wireshark
+
+
+~~~
+Con esto en el docker compose creamos el contenedor de wireshark y para acceeder a el en el navegador ponemos localhost:3000 y ya podremos escanear los paquetes de la red.
+La configuracion que tengo se consigue en la propia pagina de la imagen.
+asir_wireshark:
+    image: linuxserver/wireshark
+    cap_add:  
+      - NET_ADMIN
+    network_mode: host  
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    ports:
+      - 3000:3000 #optional
+
+Ahora podremos ccaptar paquetes dns, http y https y tambien podemos comprobar que los http van en texto plano y los https cifrados
+~~~
