@@ -145,6 +145,20 @@ Despues, vamos a inspeccionar el volumen y tenemos que entrar en el archivo http
 
 ~~~
 
+~~~
+Ahora configuramos el virtual host asi:
+<VirtualHost _default_:443>
+DocumentRoot "/usr/local/apache2/htdocs/adios"
+ServerName adios.prueba.com
+ServerAdmin you@example.com
+ErrorLog /proc/self/fd/2
+TransferLog /proc/self/fd/1
+SSLEngine on
+SSLCertificateFile "/usr/local/apache2/conf/server.crt"
+SSLCertificateKeyFile "/usr/local/apache2/conf/server.key"
+
+~~~
+
 ## Wireshark
 
 
