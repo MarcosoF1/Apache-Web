@@ -163,5 +163,5 @@ asir_wireshark:
     ports:
       - 3000:3000 #optional
 
-Ahora podremos ccaptar paquetes dns, http y https y tambien podemos comprobar que los http van en texto plano y los https cifrados
+Ahora podremos captar paquetes dns, http y https y tambien podemos comprobar que los http van en texto plano y los https cifrados
 ~~~
