@@ -1,6 +1,6 @@
 # Servidor Web Apache
 
-## Docker compose
+## Docker Compose
 ~~~
 version: "2.2"
 services:
@@ -14,14 +14,14 @@ services:
     volumes:
       -dns_conf:/etc/bind
     networks:
-      red01:
+      red01: Aquí está la IP que tendrá en la red creada: red01
         ipv4_address: 10.1.0.254
 ~~~
 #### Este es el cliente con la imagen kasmweb/desktop
 ~~~
   asir_cliente:
     image: kasmweb/desktop:1.10.0-rolling
-    ports:
+    ports: Aquí tiene vinculado dos puertos
       -6901:6901
 ~~~
 #### El apartado environment nos sirve para ponerme la contraseña al usuario del contenedor
